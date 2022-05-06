@@ -1,0 +1,21 @@
+$formBGColor: #F4F7FC;
+
+#signInDiv {
+  background-color: $formBGColor;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 460px;
+}
+
+.centered-element {
+  margin: 0 auto;
+}
+
+
+
+@media screen and (max-width: 576px){
+  #signInDiv {
+    max-width: 1000px;
+    border-radius: 0;
+  }
+}

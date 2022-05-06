@@ -1,0 +1,9 @@
+$fontSize: 13px;
+
+label, input, button, p, a {
+  font-size: $fontSize;
+}
+
+.centered-element {
+  margin: 0 auto;
+}

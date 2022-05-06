@@ -1,0 +1,5 @@
+<div class="mb-4">
+  <label class="form-label">{{ title }}</label>
+  <input class="form-control mb-1" [type]="inputType" [placeholder]="placeHolder" [disabled]="disabled" (blur)="onBlur()" (change)="onTextChange($event)" [value]="text" />
+  <app-validation-messages [ValidationItems]="validationItems"></app-validation-messages>
+</div>

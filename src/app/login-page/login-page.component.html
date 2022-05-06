@@ -1,0 +1,36 @@
+<app-dialog title="Sign in" [formGroup]="loginForm">
+  <div class="mb-3">
+    <label class="form-label" for="emailInput">Email address</label>
+    <input class="form-control" type="email" placeholder="enter your email here" id="emailInput" formControlName="email" [class.is-invalid]="isEmailInvalid"/>
+    <app-validation-messages [ValidationItems]="emailValidationItems"></app-validation-messages>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="passwordInput">Password</label>
+    <input class="form-control" type="text" placeholder="enter your password here" id="passwordInput" formControlName="password"
+    [class.is-invalid]="isPasswordInvalid"
+    />
+    <app-validation-messages [ValidationItems]="passwordValidationItems"></app-validation-messages>
+  </div>
+
+  <div class="mb-3">
+    <input class="form-check-input" type="checkbox" id="remmemberMe" formControlName="rememberMe" />
+    <label class="form-check-label" for="remmemberMe">Remember me</label>
+  </div>
+
+  <div class="mb-2 d-grid">
+    <button type="button" class="btn btn-primary" [disabled]="isInvalid()" (click)="onSignInTapped()">Sign In</button>
+  </div>
+
+  <div class="mb-4 text-center">
+    <a href="/reset">Forgot password?</a>
+  </div>
+
+  <div class="mb-1 text-center">
+    <p class="fw-bold">Don't have an account?</p>
+  </div>
+
+  <div class="mb-3 d-grid">
+    <a type="button" class="btn btn-dark" href="/register">Register here</a>
+  </div>
+</app-dialog>
