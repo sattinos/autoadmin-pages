@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {ValidationItem} from "../lib/models/validation-item";
 import {
-  isElementMissed,
-  isEmailNotValidFormat,
-  isPasswordTooShort
+  isElementMissed, isElementTooShort,
+  isEmailNotValidFormat
 } from "../lib/controller/validation/validation-queries";
 
 @Component({
@@ -34,7 +33,7 @@ export class LoginPageComponent implements OnInit {
 
   passwordValidationItems: ValidationItem[] = [
     { message: "password is required", flag: isElementMissed.bind(this, this.loginForm, 'password') },
-    { message: "should be at least 8 characters", flag: isPasswordTooShort.bind(this, this.loginForm, 'password') }
+    { message: "should be at least 8 characters", flag: isElementTooShort.bind(this, this.loginForm, 'password') }
   ];
 
   ngOnInit(): void {

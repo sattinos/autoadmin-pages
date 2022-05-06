@@ -2,7 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators} from "@angular/forms";
 import {ValidationItem} from "../lib/models/validation-item";
 import {CustomValidators} from "../lib/controller/validation/custom-validators";
-import {isElementMissed, isElementTooLong, isElementTooShort} from "../lib/controller/validation/validation-queries";
+import {
+  isElementInvalid,
+  isElementMissed,
+  isElementTooLong,
+  isElementTooShort,
+  isEmailNotValidFormat
+} from "../lib/controller/validation/validation-queries";
 
 @Component({
   selector: 'app-register-page',
@@ -73,7 +79,7 @@ export class RegisterPageComponent implements OnInit {
   emailValidationItems: ValidationItem[] = [
     {message: "Please provide an email address", flag: isElementMissed.bind(this, this.signupForm, 'email')},
     {message: "The email address should be at least 5 characters", flag: isElementTooShort.bind(this,this.signupForm, "email") },
-    {message: "The email address entered is not valid format", flag: this.isEmailNotValidFormat.bind(this)}
+    {message: "The email address entered is not valid format", flag: isEmailNotValidFormat.bind(this, this.signupForm, 'email')}
   ];
 
   passwordValidationItems: ValidationItem[] = [
@@ -92,11 +98,6 @@ export class RegisterPageComponent implements OnInit {
     { message: "should contain at least one uppercase character", flag: this.missingAtLeastOneUpperCase.bind(this) },
     { message: "should contain at least one symbol", flag: this.missingAtLeastOneSymbol.bind(this) }
   ];
-
-  isEmailNotValidFormat() {
-    let element = this.signupForm.controls['email'];
-    return element.touched && element.errors?.email;
-  }
 
   isPasswordFilled() {
     let element = this.signupForm.controls['password'];
@@ -139,8 +140,7 @@ export class RegisterPageComponent implements OnInit {
   }
 
   isElementInvalid(elementName: string) {
-    let element = this.signupForm.controls[elementName];
-    return !!element && element.touched && element.invalid;
+    return isElementInvalid(this.signupForm, elementName);
   }
 
   isPasswordMisMatch() {
