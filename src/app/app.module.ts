@@ -11,6 +11,7 @@ import { DialogComponent } from './lib/dialog/dialog.component';
 import { InputRowComponent } from './lib/view/input-row/input-row.component';
 import {ValidationMessagesComponent} from "./lib/view/validation-messages/validation-messages.component";
 import { AchievementListComponent } from './lib/view/achievement-list/achievement-list.component';
+import { NewPasswordComponent } from './new-password/new-password.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AchievementListComponent } from './lib/view/achievement-list/achievemen
     DialogComponent,
     ValidationMessagesComponent,
     InputRowComponent,
-    AchievementListComponent
+    AchievementListComponent,
+    NewPasswordComponent
   ],
   imports: [
     BrowserModule,
