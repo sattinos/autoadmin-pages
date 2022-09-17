@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject} from "rxjs";
+import {LibModule} from "../lib.module";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: LibModule
 })
 export class LoadingService {
 
-  private _loadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private _loadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
   constructor() { }
 
