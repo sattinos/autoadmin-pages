@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {LoadingService} from "./lib/services/loading.service";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'AutoAdminPages';
+
+  constructor(public loadingService: LoadingService) {
+  }
 }
