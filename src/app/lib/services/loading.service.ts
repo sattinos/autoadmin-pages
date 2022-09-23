@@ -7,7 +7,7 @@ import {LibModule} from "../lib.module";
 })
 export class LoadingService {
 
-  private _loadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  private _loadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor() { }
 

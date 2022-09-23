@@ -8,6 +8,7 @@ import {InputRowComponent} from "./view/input-row/input-row.component";
 import {ValidationMessagesComponent} from "./view/validation-messages/validation-messages.component";
 import {AchievementListComponent} from "./view/achievement-list/achievement-list.component";
 import {DigitOnlyDirective} from "./directives/digit-only/digit-only.directive";
+import { InputMaskDirective } from './directives/input-mask/input-mask.directive';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {DigitOnlyDirective} from "./directives/digit-only/digit-only.directive";
     InputRowComponent,
     ValidationMessagesComponent,
     AchievementListComponent,
-    DigitOnlyDirective
+    DigitOnlyDirective,
+    InputMaskDirective
   ],
   imports: [
     CommonModule
@@ -32,7 +34,8 @@ import {DigitOnlyDirective} from "./directives/digit-only/digit-only.directive";
     LoadingComponent,
     ValidationMessagesComponent,
     AchievementListComponent,
-    DigitOnlyDirective
+    DigitOnlyDirective,
+    InputMaskDirective
   ]
 })
 export class LibModule {

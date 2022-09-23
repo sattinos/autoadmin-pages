@@ -1,46 +1,17 @@
 import {Directive, ElementRef, HostListener} from '@angular/core';
-import {Condition} from "../../core/logic/condition";
-import {OrGroup} from "../../core/logic/orGroup";
 import "../../core/string/string-extensions";
+import {keyboard} from "../../core/constants/keyboard";
+import {htmlInputElementExtensions} from "../../core/html-elements/input-extensions";
 @Directive({
   selector: '[digitOnly]'
 })
 export class DigitOnlyDirective {
-
-  navigationKeys: string[] = [
-    'Backspace',
-    'Delete',
-    'Tab',
-    'Escape',
-    'Enter',
-    'Home',
-    'End',
-    'ArrowLeft',
-    'ArrowRight',
-    'Clear',
-    'Copy',
-    'Paste'
-  ];
-
-  combinationKeys: string[] = [
-    'a', 'c', 'v', 'x'
-  ];
-
-  conditions: Condition<KeyboardEvent>[] = [
-    {condition: (arg: KeyboardEvent) => arg.ctrlKey && this.combinationKeys.indexOf(arg.key) > -1},
-    {condition: (arg: KeyboardEvent) => arg.metaKey && this.combinationKeys.indexOf(arg.key) > -1}
-  ]
-
   constructor(private elementRef: ElementRef) {}
 
   @HostListener('keydown', ['$event'])
   OnKeyDown(event: KeyboardEvent) {
-    if( this.navigationKeys.indexOf(event.key) > -1 ) {
-      return;
-    }
-
-    const orGroup = new OrGroup<KeyboardEvent>(this.conditions);
-    if( orGroup.IsMet(event) ) {
+    if( keyboard.isNavigationKeyEvent(event) ||
+        keyboard.isCombinationKeyEvent(event) ) {
       return;
     }
 
@@ -57,11 +28,22 @@ export class DigitOnlyDirective {
     event.preventDefault();
     const digitOnlyPastedText: string = event.clipboardData?.getData('text/plain').replace(/\D/g, '');
 
+    var selectionStart = this.elementRef.nativeElement.selectionStart;
+    var selectionEnd = this.elementRef.nativeElement.selectionEnd;
     var caretPos = this.elementRef.nativeElement.selectionStart;
+
+    if( selectionStart < selectionEnd ) {
+      var leftOfCursor = this.elementRef.nativeElement.value.substring(0, selectionStart);
+      var rightOfCursor = this.elementRef.nativeElement.value.substring(selectionEnd);
+      var value = `${leftOfCursor}${digitOnlyPastedText}${rightOfCursor}`;
+      htmlInputElementExtensions.setInputValue(this.elementRef.nativeElement, value, selectionStart, selectionEnd);
+      return;
+    }
     var inputText = this.elementRef.nativeElement.value as string;
-    this.elementRef.nativeElement.value = inputText.insertAt(caretPos, digitOnlyPastedText)
-    this.elementRef.nativeElement.selectionStart = caretPos;
-    this.elementRef.nativeElement.selectionEnd = caretPos + digitOnlyPastedText.length;
+    htmlInputElementExtensions.setInputValue(
+      this.elementRef.nativeElement,
+      inputText.insertAt(caretPos, digitOnlyPastedText),
+      caretPos, caretPos + digitOnlyPastedText.length
+    );
   }
 }
-
